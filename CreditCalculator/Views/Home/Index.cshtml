@@ -1,0 +1,48 @@
+﻿@{
+  ViewData["Title"] = "Home Page";
+}
+
+<div>
+  <h1 class="display-4 text-center">Кредитный калькулятор</h1>
+
+  <form>
+    <div class="container">
+
+      <div class="row">
+        <div class="col-3 mb-3">
+          @*TODO сделать валидацию, чтобы нельзя было ввести сумму с 3 и более знаками после запятой
+          и еще проверить валидацию с точкой и запятой
+          и еще запретить вводить отрицательные числа
+          *@
+          <label for="loanAmount" class="form-label">Сумма займа</label>
+          <div class=" input-group">
+            <input type="number" class="form-control" id="loanAmount" placeholder="0.00">
+            <span class="input-group-text">руб.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-3 mb-3">
+          @* TODO Сделать целочисленный ввод
+          и еще неотрицательные числа
+          *@
+          <label for="term" class="form-label">Срок займа (в месяцах)</label>
+          <input type="number" class="form-control" id="term" placeholder="1">
+        </div>
+      </div>
+      
+      <div class="row">
+        <div class="col-3 mb-3">
+          <label for="rate" class="form-label">Процентная ставка (в год)</label>
+          <div class=" input-group">
+            <input type="number" class="form-control" id="rate" placeholder="0.00">
+            <span class="input-group-text">%</span>
+          </div>
+        </div>
+      </div>
+      
+      <button type="submit" class="btn btn-primary">Рассчитать</button>
+    </div>
+  </form>
+</div>
