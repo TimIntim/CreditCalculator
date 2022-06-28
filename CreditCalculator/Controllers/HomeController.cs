@@ -26,8 +26,15 @@ namespace CreditCalculator.Controllers
             if (!ModelState.IsValid)
                 return View(model);
 
-            model.CreateSchedule();
-            _context.CreditCalculations.Add(model);
+            try
+            {
+                model.CreateSchedule();
+                _context.CreditCalculations.Add(model);
+            }
+            catch (Exception)
+            {
+                return View(model);//TODO - заглушка. надо что-то нормальное сделать
+            }
 
             return RedirectToAction(nameof(Privacy));
         }

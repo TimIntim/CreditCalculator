@@ -1,23 +1,28 @@
-﻿@{
+﻿@model CreditCalculator.Models.CreditCalculation
+
+@{
   ViewData["Title"] = "Home Page";
 }
 
 <div>
   <h1 class="display-4 text-center">Кредитный калькулятор</h1>
 
-  <form>
+  <form asp-action="Index" method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     <div class="container">
 
       <div class="row">
         <div class="col-3 mb-3">
           @*TODO сделать валидацию, чтобы нельзя было ввести сумму с 3 и более знаками после запятой
-          и еще проверить валидацию с точкой и запятой
-          и еще запретить вводить отрицательные числа
+            и еще проверить валидацию с точкой и запятой
+            и еще запретить вводить отрицательные числа
           *@
-          <label for="loanAmount" class="form-label">Сумма займа</label>
-          <div class=" input-group">
-            <input type="number" class="form-control" id="loanAmount" placeholder="0.00">
-            <span class="input-group-text">руб.</span>
+          <div class="form-group">
+            <label asp-for="LoanAmount" class="control-label">Сумма займа</label>
+            <div class=" input-group">
+              <input asp-for="LoanAmount" class="form-control" placeholder="0.00">
+              <span class="input-group-text">руб.</span>
+            </div>
           </div>
         </div>
       </div>
@@ -25,13 +30,13 @@
       <div class="row">
         <div class="col-3 mb-3">
           @* TODO Сделать целочисленный ввод
-          и еще неотрицательные числа
+            и еще неотрицательные числа
           *@
           <label for="term" class="form-label">Срок займа (в месяцах)</label>
           <input type="number" class="form-control" id="term" placeholder="1">
         </div>
       </div>
-      
+
       <div class="row">
         <div class="col-3 mb-3">
           <label for="rate" class="form-label">Процентная ставка (в год)</label>
@@ -41,7 +46,7 @@
           </div>
         </div>
       </div>
-      
+
       <button type="submit" class="btn btn-primary">Рассчитать</button>
     </div>
   </form>
