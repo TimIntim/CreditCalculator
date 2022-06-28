@@ -12,8 +12,6 @@ namespace CreditCalculator.Models
         public decimal MarginSum { get; set; }
         public decimal BodyDebt { get; set; }
 
-        public int CreditCalculation { get; set; }
-
-        public virtual List<CreditCalculation> CreditCalculations { get; set; }
+        public CreditCalculation CreditCalculation { get; set; }
     }
 }

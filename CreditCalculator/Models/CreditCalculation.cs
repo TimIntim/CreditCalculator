@@ -9,5 +9,6 @@ namespace CreditCalculator.Models
         public decimal LoanAmount { get; set; }
         public int MonthlyTerm { get; set; }
         public decimal AnnualInterestRate { get; set; }
+        public List<Payment> Payments { get; set; }
     }
 }
