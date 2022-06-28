@@ -4,6 +4,7 @@ using CreditCalculator.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CreditCalculator.Migrations
 {
     [DbContext(typeof(CreditCalculatorContext))]
-    partial class CreditCalculatorContextModelSnapshot : ModelSnapshot
+    [Migration("20220628180148_test3")]
+    partial class test3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -55,7 +57,7 @@ namespace CreditCalculator.Migrations
                     b.Property<decimal>("BodySum")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<int>("CreditCalculationId")
+                    b.Property<int?>("CreditCalculationId")
                         .HasColumnType("int");
 
                     b.Property<decimal>("DebtBalance")
@@ -71,18 +73,19 @@ namespace CreditCalculator.Migrations
 
                     b.HasIndex("CreditCalculationId");
 
-                    b.ToTable("Payments");
+                    b.ToTable("Payment");
                 });
 
             modelBuilder.Entity("CreditCalculator.Models.Payment", b =>
                 {
-                    b.HasOne("CreditCalculator.Models.CreditCalculation", "CreditCalculation")
-                        .WithMany()
-                        .HasForeignKey("CreditCalculationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.HasOne("CreditCalculator.Models.CreditCalculation", null)
+                        .WithMany("Payments")
+                        .HasForeignKey("CreditCalculationId");
+                });
 
-                    b.Navigation("CreditCalculation");
+            modelBuilder.Entity("CreditCalculator.Models.CreditCalculation", b =>
+                {
+                    b.Navigation("Payments");
                 });
 #pragma warning restore 612, 618
         }

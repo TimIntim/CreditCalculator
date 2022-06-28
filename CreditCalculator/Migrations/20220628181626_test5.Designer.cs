@@ -4,6 +4,7 @@ using CreditCalculator.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CreditCalculator.Migrations
 {
     [DbContext(typeof(CreditCalculatorContext))]
-    partial class CreditCalculatorContextModelSnapshot : ModelSnapshot
+    [Migration("20220628181626_test5")]
+    partial class test5
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -71,18 +73,23 @@ namespace CreditCalculator.Migrations
 
                     b.HasIndex("CreditCalculationId");
 
-                    b.ToTable("Payments");
+                    b.ToTable("Payment");
                 });
 
             modelBuilder.Entity("CreditCalculator.Models.Payment", b =>
                 {
                     b.HasOne("CreditCalculator.Models.CreditCalculation", "CreditCalculation")
-                        .WithMany()
+                        .WithMany("Payments")
                         .HasForeignKey("CreditCalculationId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("CreditCalculation");
+                });
+
+            modelBuilder.Entity("CreditCalculator.Models.CreditCalculation", b =>
+                {
+                    b.Navigation("Payments");
                 });
 #pragma warning restore 612, 618
         }

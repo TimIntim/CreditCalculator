@@ -28,8 +28,14 @@ namespace CreditCalculator.Controllers
 
             try
             {
-                model.CreateSchedule();
+                var payments = model.CreateSchedule();
                 _context.CreditCalculations.Add(model);
+                if (payments != null && payments.Any())
+                    foreach (var item in payments)
+                    {
+                        _context.Payments.Add(item);
+                    }
+                _context.SaveChanges();
             }
             catch (Exception)
             {

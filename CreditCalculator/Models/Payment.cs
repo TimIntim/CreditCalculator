@@ -18,18 +18,7 @@ namespace CreditCalculator.Models
         [Display(Name = "Остаток основного долга")]
         public decimal DebtBalance { get; set; }
 
-        public virtual CreditCalculation CreditCalculation { get; set; }
-
-        public Payment()
-        {
-
-        }
-        public Payment(DateTime paymentDate, decimal bodySum, decimal marginSum, decimal bodyDebt)
-        {
-            PaymentDate = paymentDate;
-            BodySum = bodySum;
-            MarginSum = marginSum;
-            DebtBalance = bodyDebt;
-        }
+        //public int CreditCalculationId { get; set; }
+        public CreditCalculation CreditCalculation { get; set; }
     }
 }

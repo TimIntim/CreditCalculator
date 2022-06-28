@@ -9,5 +9,6 @@ namespace CreditCalculator.Data
         { }
 
         public DbSet<CreditCalculation>CreditCalculations { get; set; }
+        public DbSet<Payment> Payments { get; set; }
     }
 }

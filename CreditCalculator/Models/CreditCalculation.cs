@@ -9,9 +9,8 @@ namespace CreditCalculator.Models
         public decimal LoanAmount { get; set; }
         public int MonthlyTerm { get; set; }
         public decimal AnnualInterestRate { get; set; }
-        public List<Payment>? Payments { get; set; }
 
-        public void CreateSchedule()
+        public List<Payment> CreateSchedule()
         {
             decimal monthlyRate = AnnualInterestRate / 12;
             decimal intermediateSum = (decimal)Math.Pow((double)(1 + monthlyRate), MonthlyTerm);
@@ -21,6 +20,7 @@ namespace CreditCalculator.Models
             decimal debtBalance = LoanAmount;
             decimal bodySum, marginSum;
             DateTime paymentDate = DateTime.Now.Date.AddMonths(1);
+            var payments = new List<Payment>();
             for (int i = 0; i < MonthlyTerm; i++)
             {
                 marginSum = debtBalance * AnnualInterestRate / 12;
@@ -31,13 +31,16 @@ namespace CreditCalculator.Models
                     PaymentDate = paymentDate,
                     BodySum = bodySum,
                     MarginSum = marginSum,
-                    DebtBalance = debtBalance
+                    DebtBalance = debtBalance,
+                    CreditCalculation = this
                 };
-                Payments.Add(payment);
+                payments.Add(payment);
 
                 paymentDate = paymentDate.AddMonths(1);
                 debtBalance -= bodySum;
             }
+
+            return payments;
         }
     }
 }
