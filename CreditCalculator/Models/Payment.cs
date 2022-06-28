@@ -10,8 +10,20 @@ namespace CreditCalculator.Models
         public DateTime PaymentDate { get; set; }
         public decimal BodySum { get; set; }
         public decimal MarginSum { get; set; }
-        public decimal BodyDebt { get; set; }
+        public decimal DebtBalance { get; set; }
 
         public CreditCalculation CreditCalculation { get; set; }
+
+        public Payment()
+        {
+
+        }
+        public Payment(DateTime paymentDate, decimal bodySum, decimal marginSum, decimal bodyDebt)
+        {
+            PaymentDate = paymentDate;
+            BodySum = bodySum;
+            MarginSum = marginSum;
+            DebtBalance = bodyDebt;
+        }
     }
 }
