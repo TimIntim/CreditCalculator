@@ -16,7 +16,7 @@ namespace CreditCalculator.Models
             decimal monthlyRate = AnnualInterestRate / 12;
             decimal intermediateSum = (decimal)Math.Pow((double)(1 + monthlyRate), MonthlyTerm);
             decimal koef = monthlyRate * intermediateSum / (intermediateSum - 1);
-            decimal monthlyPaymentSum = koef * LoanAmount;
+            decimal monthlyPaymentSum = Math.Round(koef * LoanAmount, 2, MidpointRounding.ToPositiveInfinity);
 
             decimal debtBalance = LoanAmount;
             decimal bodySum, marginSum;
