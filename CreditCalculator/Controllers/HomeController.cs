@@ -2,18 +2,19 @@
 using CreditCalculator.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using System.Net;
 
 namespace CreditCalculator.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly CreditCalculatorContext _context;
+        private readonly CreditCalculatorContext _db;
 
-        public HomeController(ILogger<HomeController> logger, CreditCalculatorContext context)
+        public HomeController(ILogger<HomeController> logger, CreditCalculatorContext db)
         {
             _logger = logger;
-            _context = context;
+            _db = db;
         }
 
         public IActionResult Index()
@@ -29,23 +30,40 @@ namespace CreditCalculator.Controllers
 
             try
             {
-                var payments = model.CreateSchedule();
-                _context.Payments.AddRange(payments);
-                _context.SaveChanges();
+                model.CreateSchedule();
+                _db.CreditCalculations.Add(model);
+                _db.SaveChanges();
             }
             catch (Exception e)
+            
             {
                 _logger.Log(LogLevel.Error, e.Message);
                 _logger.Log(LogLevel.Error, e.InnerException?.Message);
-                return View(model); //TODO - заглушка. надо что-то нормальное сделать
+                return View("Error"); //TODO - заглушка. надо что-то нормальное сделать
             }
 
-            return RedirectToAction(nameof(Privacy));
+            return RedirectToAction(nameof(Privacy), routeValues: new {id = model.Id});
         }
 
-        public IActionResult Privacy()
+        // public IActionResult Privacy()
+        // {
+        //     return View();
+        // }
+        
+        public IActionResult Privacy(int? id)
         {
-            return View();
+            if (id == null)
+                // return new StatusCodeResult((int)HttpStatusCode.BadRequest);
+            {
+                return new BadRequestResult();
+            }
+            var calculation = _db.CreditCalculations.Find(id);
+            if (calculation == null)
+            {
+                return new NotFoundResult();
+            }
+
+            return View(calculation);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

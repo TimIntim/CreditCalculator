@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 
 namespace CreditCalculator.Models
 {
@@ -9,8 +10,10 @@ namespace CreditCalculator.Models
         public decimal LoanAmount { get; set; }
         public int MonthlyTerm { get; set; }
         public decimal AnnualInterestRate { get; set; }
+        [ValidateNever]
+        public ICollection<Payment> Payments { get; set; }
 
-        public List<Payment> CreateSchedule()
+        public void CreateSchedule()
         {
             decimal monthlyRate = AnnualInterestRate / 12;
             decimal intermediateSum = (decimal)Math.Pow((double)(1 + monthlyRate), MonthlyTerm);
@@ -40,7 +43,7 @@ namespace CreditCalculator.Models
                 debtBalance -= bodySum;
             }
 
-            return payments;
+            Payments = payments;
         }
     }
 }
