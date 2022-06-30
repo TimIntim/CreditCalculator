@@ -20,6 +20,7 @@ namespace CreditCalculator.Controllers
         {
             return View();
         }
+
         [HttpPost]
         public IActionResult Index(CreditCalculation model)
         {
@@ -29,17 +30,14 @@ namespace CreditCalculator.Controllers
             try
             {
                 var payments = model.CreateSchedule();
-                _context.CreditCalculations.Add(model);
-                if (payments != null && payments.Any())
-                    foreach (var item in payments)
-                    {
-                        _context.Payments.Add(item);
-                    }
+                _context.Payments.AddRange(payments);
                 _context.SaveChanges();
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                return View(model);//TODO - заглушка. надо что-то нормальное сделать
+                _logger.Log(LogLevel.Error, e.Message);
+                _logger.Log(LogLevel.Error, e.InnerException?.Message);
+                return View(model); //TODO - заглушка. надо что-то нормальное сделать
             }
 
             return RedirectToAction(nameof(Privacy));
@@ -53,7 +51,7 @@ namespace CreditCalculator.Controllers
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            return View(new ErrorViewModel {RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier});
         }
     }
 }

@@ -18,7 +18,7 @@ namespace CreditCalculator.Models
         [Display(Name = "Остаток основного долга")]
         public decimal DebtBalance { get; set; }
 
-        //public int CreditCalculationId { get; set; }
+        public int CreditCalculationId { get; set; }
         public CreditCalculation CreditCalculation { get; set; }
     }
 }
