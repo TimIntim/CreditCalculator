@@ -46,11 +46,6 @@ namespace CreditCalculator.Controllers
             return RedirectToAction(nameof(Privacy), routeValues: new {id = model.Id});
         }
 
-        // public IActionResult Privacy()
-        // {
-        //     return View();
-        // }
-        
         public IActionResult Privacy(int? id)
         {
             if (id == null)

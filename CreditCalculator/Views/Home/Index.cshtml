@@ -13,7 +13,7 @@
 
       <div class="row">
         <div class="form-group col-4 my-1">
-          <label asp-for="LoanAmount" class="control-label">Сумма займа</label>
+          <label asp-for="LoanAmount" class="control-label"></label>
           <div class=" input-group">
             <input asp-for="LoanAmount" class="form-control" placeholder="0.00">
             <span class="input-group-text">руб.</span>
@@ -24,7 +24,7 @@
 
       <div class="row">
         <div class="form-group col-4 my-1">
-          <label asp-for="MonthlyTerm" class="control-label">Срок займа (в месяцах)</label>
+          <label asp-for="MonthlyTerm" class="control-label"></label>
           <input asp-for="MonthlyTerm" class="form-control" placeholder="1">
           <span asp-validation-for="MonthlyTerm" class="text-danger"></span>
         </div>
@@ -32,7 +32,7 @@
 
       <div class="row">
         <div class="form-group col-4 my-1">
-          <label asp-for="AnnualInterestRate" class="control-label">Процентная ставка (в год)</label>
+          <label asp-for="AnnualInterestRate" class="control-label"></label>
           <div class=" input-group">
             <input asp-for="AnnualInterestRate" class="form-control" placeholder="0.00">
             <span class="input-group-text">%</span>
