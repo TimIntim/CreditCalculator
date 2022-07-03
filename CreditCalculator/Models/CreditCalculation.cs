@@ -11,7 +11,7 @@ namespace CreditCalculator.Models
         public int MonthlyTerm { get; set; }
         public decimal AnnualInterestRate { get; set; }
         [ValidateNever]
-        public ICollection<Payment> Payments { get; set; }
+        public List<Payment> Payments { get; set; }
 
         public void CreateSchedule()
         {

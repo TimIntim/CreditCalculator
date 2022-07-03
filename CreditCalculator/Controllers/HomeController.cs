@@ -3,6 +3,7 @@ using CreditCalculator.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using System.Net;
+using Microsoft.EntityFrameworkCore;
 
 namespace CreditCalculator.Controllers
 {
@@ -57,7 +58,9 @@ namespace CreditCalculator.Controllers
             {
                 return new BadRequestResult();
             }
-            var calculation = _db.CreditCalculations.Find(id);
+            var calculation = _db.CreditCalculations
+                .Include(c => c.Payments)
+                .FirstOrDefault(c => c.Id == id);
             if (calculation == null)
             {
                 return new NotFoundResult();
