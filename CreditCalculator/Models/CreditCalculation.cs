@@ -36,6 +36,7 @@ namespace CreditCalculator.Models
             {
                 marginSum = debtBalance * AnnualInterestRate / 12;
                 bodySum = monthlyPaymentSum - marginSum;
+                debtBalance -= bodySum;
 
                 Payment payment = new Payment
                 {
@@ -48,7 +49,6 @@ namespace CreditCalculator.Models
                 payments.Add(payment);
 
                 paymentDate = paymentDate.AddMonths(1);
-                debtBalance -= bodySum;
             }
 
             Payments = payments;
