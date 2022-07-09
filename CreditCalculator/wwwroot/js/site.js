@@ -11,12 +11,6 @@ inputLoanAmount.addEventListener('input', function (e) {
     inputLoanAmount.value = inputLoanAmount.value.replace('.', ',');
 })
 
-// formInputs.forEach(function (input) {
-//     input.addEventListener('input', function () {
-//         input.classList.remove('is-invalid');
-//     });
-// });
-
 function validateMoney (money) {
     let regexMoney = /^\d+(?:,\d{1,2})?$/;
     return regexMoney.test(money)

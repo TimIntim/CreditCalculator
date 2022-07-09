@@ -7,31 +7,33 @@
 <div>
   <h1 class="display-4 text-center">Кредитный калькулятор</h1>
 
-  <form asp-action="Index" method="post" class="js-form">
+  <form asp-action="Index" method="post" class="form" id="form">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     <div class="container">
 
       <div class="row">
-        <div class="form-group col-4 my-3">
+        <div class="form-group col-4 my-1">
           <label asp-for="LoanAmount" class="control-label"></label>
           <div class=" input-group">
             <input asp-for="LoanAmount" 
                    class="form-control js_input-validation" 
-                   placeholder="0.00" 
-                   required>
+                   placeholder="0.00">
             <span class="input-group-text col-1 text-center">₽</span>
-            <div class="invalid-feedback my-3">Test</div>
           </div>
           <span asp-validation-for="LoanAmount" class="text-danger"></span>
+          <div class="error"></div>
         </div>
-        <div class="col-3 error"></div>
       </div>
 
       <div class="row">
         <div class="form-group col-4 my-1">
           <label asp-for="MonthlyTerm" class="control-label"></label>
-          <input asp-for="MonthlyTerm" class="form-control" placeholder="1">
+          <div class=" input-group">
+            <input asp-for="MonthlyTerm" class="form-control" placeholder="1">
+             <span class="input-group-text col-1 text-center">м.</span>
+          </div>
           <span asp-validation-for="MonthlyTerm" class="text-danger"></span>
+          <div class="error"></div>
         </div>
       </div>
 
@@ -43,6 +45,7 @@
             <span class="input-group-text col-1 text-center">%</span>
           </div>
           <span asp-validation-for="AnnualInterestRate" class="text-danger"></span>
+          <div class="error"></div>
         </div>
       </div>
 

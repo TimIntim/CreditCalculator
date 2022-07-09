@@ -28,3 +28,9 @@ input::-webkit-inner-spin-button {
 input[type=number] {
     -moz-appearance: textfield;
 }
+
+.error {
+    color: #dc3545;
+    font-size: 15px;
+    margin-top: 5px;
+}

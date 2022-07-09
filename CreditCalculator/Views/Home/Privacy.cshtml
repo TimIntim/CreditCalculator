@@ -6,27 +6,28 @@
 
 <div>
   <h1 class="display-4 text-center">Результаты расчета</h1>
-
+  
   <form>
     <div class="container mt-4">
-      @* TODO-сделать более приятный вид таблицы *@
       <table class="table">
         <thead>
           <tr>
             <th scope="col">№</th>
             <th scope="col">Дата платежа</th>
-            <th scope="col">Размер платежа по телу</th>
-            <th scope="col">Размер платежа по %</th>
-            <th scope="col">Остаток основного долга</th>
+            <th scope="col">Размер платежа</th>
+            <th scope="col">Основной долг</th>
+            <th scope="col">Проценты</th>
+            <th scope="col">Остаток долга</th>
           </tr>
         </thead>
         <tbody>
-          @for (int i = 0; i < Model.Payments.Count(); i++)
+          @for (var i = 0; i < Model.Payments.Count(); i++)
           {
             var payment = Model.Payments[i];
             <tr>
               <th scope="row">@(i + 1)</th>
               <td>@payment.PaymentDate.ToString("dd.MM.yyyy")</td>
+              <td>@((payment.BodySum + payment.MarginSum).ToString("N2")) руб.</td>
               <td>@payment.BodySum.ToString("N2") руб.</td>
               <td>@payment.MarginSum.ToString("N2") руб.</td>
               <td>@payment.DebtBalance.ToString("N2") руб.</td>

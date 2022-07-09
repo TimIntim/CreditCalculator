@@ -23,7 +23,7 @@ namespace CreditCalculator.Models
 
         public void CreateSchedule()
         {
-            decimal monthlyRate = AnnualInterestRate / 12;
+            decimal monthlyRate = AnnualInterestRate / 12 / 100;
             decimal intermediateSum = (decimal)Math.Pow((double)(1 + monthlyRate), MonthlyTerm);
             decimal koef = monthlyRate * intermediateSum / (intermediateSum - 1);
             decimal monthlyPaymentSum = Math.Round(koef * LoanAmount, 2);
@@ -34,8 +34,10 @@ namespace CreditCalculator.Models
             var payments = new List<Payment>();
             for (int i = 0; i < MonthlyTerm; i++)
             {
-                marginSum = debtBalance * AnnualInterestRate / 12;
-                bodySum = monthlyPaymentSum - marginSum;
+                marginSum = Math.Round(debtBalance * monthlyRate, 2);
+                bodySum = monthlyPaymentSum < debtBalance 
+                    ? monthlyPaymentSum - marginSum
+                    : debtBalance;
                 debtBalance -= bodySum;
 
                 Payment payment = new Payment
