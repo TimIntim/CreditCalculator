@@ -2,7 +2,6 @@
 using CreditCalculator.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
-using System.Net;
 using Microsoft.EntityFrameworkCore;
 
 namespace CreditCalculator.Controllers
@@ -40,7 +39,7 @@ namespace CreditCalculator.Controllers
             {
                 _logger.Log(LogLevel.Error, e.Message);
                 _logger.Log(LogLevel.Error, e.InnerException?.Message);
-                return View("Error"); //TODO - заглушка. надо что-то нормальное сделать
+                return View("Error");
             }
 
             return RedirectToAction(nameof(Privacy), routeValues: new {id = model.Id});

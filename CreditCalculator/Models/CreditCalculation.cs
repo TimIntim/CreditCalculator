@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using Microsoft.AspNetCore.Mvc.ModelBinding.Binders;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 
 namespace CreditCalculator.Models
@@ -29,18 +28,19 @@ namespace CreditCalculator.Models
             decimal monthlyPaymentSum = Math.Round(koef * LoanAmount, 2);
 
             decimal debtBalance = LoanAmount;
-            decimal bodySum, marginSum;
-            DateTime paymentDate = DateTime.Now.Date.AddMonths(1);
+            var paymentDate = DateTime.Now.Date.AddMonths(1);
             var payments = new List<Payment>();
-            for (int i = 0; i < MonthlyTerm; i++)
+            for (var i = 0; i < MonthlyTerm; i++)
             {
-                marginSum = Math.Round(debtBalance * monthlyRate, 2);
-                bodySum = monthlyPaymentSum < debtBalance 
+                decimal marginSum = Math.Round(debtBalance * monthlyRate, 2);
+                
+                // Из-за округлений в расчетах размер последнего платежа другой. Поэтому просто берем bodySum из debtBalance
+                decimal bodySum = monthlyPaymentSum < debtBalance 
                     ? monthlyPaymentSum - marginSum
                     : debtBalance;
                 debtBalance -= bodySum;
 
-                Payment payment = new Payment
+                var payment = new Payment
                 {
                     PaymentDate = paymentDate,
                     BodySum = bodySum,
