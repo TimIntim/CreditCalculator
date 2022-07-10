@@ -6,7 +6,7 @@
 
 <div>
   <h1 class="display-4 text-center">Результаты расчета</h1>
-  
+
   <form>
     <div class="container mt-4">
       <table class="table">
@@ -34,6 +34,16 @@
             </tr>
           }
         </tbody>
+        <tfoot>
+          <tr class="table-warning">
+            <td>Итого:</td>
+            <td></td>
+            <td>@Model.Payments.Sum(x => x.BodySum + x.MarginSum).ToString("N2") руб.</td>
+            <td>@Model.Payments.Sum(x => x.BodySum).ToString("N2") руб.</td>
+            <td>@Model.Payments.Sum(x => x.MarginSum).ToString("N2") руб.</td>
+            <td></td>
+          </tr>
+        </tfoot>
       </table>
     </div>
   </form>
